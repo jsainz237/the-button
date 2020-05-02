@@ -1,0 +1,20 @@
+$button-color: #20aaff;
+$button-hover-color: #008ee6;
+$button-color-active: #70c8ff;
+
+.the-button {
+    font-size: larger;
+    font-weight: bold;
+    color: white;
+    background-color: $button-color;
+    padding: 25px 75px;
+    border-style: none;
+}
+
+.the-button:hover {
+    background-color: $button-hover-color;
+}
+
+.the-button:active {
+    background-color: $button-color-active;
+}
