@@ -12,15 +12,20 @@ export class ColorBarComponent implements OnInit {
   _colorSub: Subscription;
   current_color: Rank;
   current_index: number;
-  color_mapping: Rank[];
+
+  barSectionWidth1: string;
+  barSectionWidth2: string;
 
   constructor(private colorService: ColorService) { }
 
   ngOnInit() {
-    this.color_mapping = this.colorService.color_mapping;
     this._colorSub = this.colorService.current_color.subscribe(({ rank, index }) => {
       this.current_color = rank;
       this.current_index = index;
+      
+      this.barSectionWidth1 = `${100/13 * this.current_index}%`;
+      this.barSectionWidth2 = `calc(${100/13 * (13 - this.current_index)}% + ${this.current_index === 0 ? '4px' : '0px'})`;
+      console.log(this.barSectionWidth2);
     });
     this.colorService.start_timer();
   }

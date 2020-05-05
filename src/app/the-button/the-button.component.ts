@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventsService, ResetEventResponse } from '../events.service';
 import { Observable, Subscription } from 'rxjs';
+import { ColorService } from '../color.service';
 
 @Component({
   selector: 'app-the-button',
@@ -9,12 +10,16 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class TheButtonComponent implements OnInit {
 
-  constructor(private eventsService: EventsService) { }
+  constructor(
+    private eventsService: EventsService,
+    private colorsService: ColorService
+  ) { }
 
   ngOnInit() {
   }
 
   press_button() {
+    this.colorsService.reset();
     this.eventsService.send_press_event();
   }
 
