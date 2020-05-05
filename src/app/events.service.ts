@@ -15,7 +15,7 @@ export class EventsService {
 
   constructor(private socket: Socket) { }
 
-  send_press_event(username: string) {
+  send_press_event(username?: string) {
     this.socket.emit("PRESSED", username);
   }
 }

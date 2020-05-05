@@ -15,7 +15,7 @@ export class TheButtonComponent implements OnInit {
   }
 
   press_button() {
-    this.eventsService.send_press_event('hello');
+    this.eventsService.send_press_event();
   }
 
 }

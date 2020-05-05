@@ -1,0 +1,11 @@
+<div class="color-bar">
+    <div class="progress-bar">
+        <div 
+            class="progress-bar-section gray left" 
+            [ngStyle]="{'width.px': 50 * this.current_index}"></div>
+        <div 
+            class="progress-bar-section right" 
+            [ngClass]="current_color.toLowerCase()"
+            [ngStyle]="{'width.px': 50 * (13 - this.current_index)}"></div>
+    </div>
+</div>

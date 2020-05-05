@@ -1,0 +1,58 @@
+$box-dimension: 50px;
+$box-margin: 2px;
+
+.color-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: $box-dimension / 2;
+    width: (($box-dimension + (2 * $box-margin)) * 13) - (2 * $box-margin);
+}
+
+.progress-bar-section {
+    height: 100%;
+}
+
+.left {
+    margin-right: $box-margin;
+}
+
+.right {
+    margin-left: $box-margin;
+}
+
+.gray {
+    background-color: gray;
+}
+
+.purple {
+    background-color: rgb(215, 23, 233);
+}
+
+.blue {
+    background-color: rgb(33, 93, 255);
+}
+
+.green {
+    background-color: rgb(0, 212, 0);
+}
+
+.yellow {
+    background-color: rgb(249, 226, 20);
+}
+
+.orange {
+    background-color: rgb(255, 172, 20);
+}
+
+.red {
+    background-color: rgb(255, 20, 20);
+}
