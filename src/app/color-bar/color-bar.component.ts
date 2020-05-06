@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ColorService } from '../color.service';
 import { Rank } from 'src/models/user';
 import { Subscription } from 'rxjs';
+import { EventsService } from '../events.service';
 
 @Component({
   selector: 'app-color-bar',
@@ -9,28 +9,27 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./color-bar.component.scss']
 })
 export class ColorBarComponent implements OnInit {
-  _colorSub: Subscription;
-  current_color: Rank;
-  current_index: number;
+  _resetListener: Subscription;
+  _deathListener: Subscription;
+  _updateColorListener: Subscription;
+
+  color: Rank;
+  index: number;
 
   barSectionWidth1: string;
   barSectionWidth2: string;
 
-  constructor(private colorService: ColorService) { }
+  constructor(private eventsService: EventsService) { }
 
   ngOnInit() {
-    this._colorSub = this.colorService.current_color.subscribe(({ rank, index }) => {
-      this.current_color = rank;
-      this.current_index = index;
+    this._updateColorListener = this.eventsService.updateColorListener.subscribe(({ color, index }) => {
+      this.color = color;
+      this.index = index;
       
-      this.barSectionWidth1 = `${100/13 * this.current_index}%`;
-      this.barSectionWidth2 = `calc(${100/13 * (13 - this.current_index)}% + ${this.current_index === 0 ? '4px' : '0px'})`;
-      console.log(this.barSectionWidth2);
+      this.barSectionWidth1 = `${100/13 * this.index}%`;
+      this.barSectionWidth2 = `calc(${100/13 * (13 - this.index)}% + ${this.index === 0 ? '4px' : '0px'})`;
     });
-    this.colorService.start_timer();
-  }
-
-  reset() {
-    this.colorService.reset();
+    
+    this._deathListener = this.eventsService.resetListener.subscribe(() => console.log("DEATH HAPPENED X_X "));
   }
 }

@@ -5,10 +5,10 @@
             [ngStyle]="{'width': this.barSectionWidth1 }"></div>
         <div 
             class="progress-bar-section" 
-            [ngClass]="current_color.toLowerCase()"
+            [ngClass]="color.toLowerCase()"
             [ngStyle]="{
                 'width': this.barSectionWidth2,
-                'margin-left.px': this.current_index === 0 ? 0 : 4
+                'margin-left.px': index === 0 ? 0 : 4
             }"></div>
     </div>
 </div>
