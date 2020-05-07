@@ -1,4 +1,6 @@
-<div class="home-container">
-    <app-color-bar></app-color-bar>
-    <app-the-button></app-the-button>
+<div>
+    <div class="home-container" *ngIf="!isDead">
+        <app-color-bar></app-color-bar>
+        <app-the-button></app-the-button>
+    </div>
 </div>
