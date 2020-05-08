@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { EventsService } from '../events.service';
-import { Observable, Subscription } from 'rxjs';
-import { ColorService } from '../color.service';
 
 @Component({
   selector: 'app-the-button',

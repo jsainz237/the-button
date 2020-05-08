@@ -29,7 +29,5 @@ export class ColorBarComponent implements OnInit {
       this.barSectionWidth1 = `${100/13 * this.index}%`;
       this.barSectionWidth2 = `calc(${100/13 * (13 - this.index)}% + ${this.index === 0 ? '4px' : '0px'})`;
     });
-    
-    this._deathListener = this.eventsService.resetListener.subscribe(() => console.log("DEATH HAPPENED X_X "));
   }
 }
