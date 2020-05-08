@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { TheButtonComponent } from './the-button/the-button.component';
 import { HomeComponent } from './home/home.component';
 import { ColorBarComponent } from './color-bar/color-bar.component';
+import { LoginComponent } from './login/login.component';
+import { AppRoutingModule } from './app-routing.module';
 
 const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} }
 
@@ -14,11 +16,13 @@ const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} }
     AppComponent,
     TheButtonComponent,
     HomeComponent,
-    ColorBarComponent
+    ColorBarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

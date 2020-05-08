@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { EventsService } from './events.service';
-import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +8,7 @@ import { Observable, Subscription } from 'rxjs';
 export class AppComponent {
   title = 'the-button';
 
-  constructor(private eventsService: EventsService) {}
+  constructor() {}
 
   ngOnInit() {
   }
