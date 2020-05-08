@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Rank } from 'src/models/user';
 import { Subscription } from 'rxjs';
-import { EventsService } from '../events.service';
+import { EventsService } from '../../services/events.service';
 
 @Component({
   selector: 'app-color-bar',

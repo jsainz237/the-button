@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { User, Rank } from '../models/user';
-import { SocketEvents } from './types/events';
+import { SocketEvents } from '../types/events';
 
 @Injectable({
   providedIn: 'root'
