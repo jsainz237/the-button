@@ -1,6 +1,16 @@
-<div>
-    <div class="home-container" *ngIf="!isDead">
-        <app-color-bar></app-color-bar>
-        <app-the-button></app-the-button>
+<div class="home-container">
+    <div class="home-toolbar">
+        <a routerLink="/instructions" class="link">Instructions</a>
+        <div class="home-auth-wrapper">
+            <a routerLink="/login" class="link" [style.margin-right.px]="15">Login</a>
+            <div [style.margin-right.px]="15" class="auth-separator"></div>
+            <a routerLink="/register" class="link">Register</a>
+        </div>
+    </div>
+    <div class="home-content">
+        <h1 class="title">THE BUTTON</h1>
+        <app-color-bar *ngIf="!isDead"></app-color-bar>
+        <app-the-button *ngIf="!isDead"></app-the-button>
+        <img src="{{ this.gifLink }}" *ngIf="isDead" />
     </div>
 </div>

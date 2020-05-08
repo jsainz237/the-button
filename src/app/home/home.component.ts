@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 export class HomeComponent implements OnInit {
   isDead: boolean = false;
   _deathListener: Subscription;
+  gifLink: string = "https://media.giphy.com/media/3o7aCTNjq3qiUbzrHi/giphy.gif"
 
   constructor(private eventsService: EventsService) { }
 
