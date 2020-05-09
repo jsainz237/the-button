@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
 import { TheButtonComponent } from './the-button/the-button.component';
@@ -8,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { ColorBarComponent } from './color-bar/color-bar.component';
 import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
+import { colorReducer } from 'src/state/color/color.reducer';
 
 const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} }
 
@@ -22,7 +24,8 @@ const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} }
   imports: [
     BrowserModule,
     SocketIoModule.forRoot(config),
-    AppRoutingModule
+    AppRoutingModule,
+    StoreModule.forRoot({ color: colorReducer })
   ],
   providers: [],
   bootstrap: [AppComponent]
