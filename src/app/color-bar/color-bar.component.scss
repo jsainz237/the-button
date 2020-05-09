@@ -1,3 +1,5 @@
+@import "../../variables";
+
 $bar-height: 50px;
 $bar-width: 75vw;
 $box-margin: 2px;
@@ -25,29 +27,29 @@ $box-margin: 2px;
 }
 
 .gray {
-    background-color: gray;
+    background-color: $gray;
 }
 
 .purple {
-    background-color: rgb(215, 23, 233);
+    background-color: $purple;
 }
 
 .blue {
-    background-color: rgb(33, 93, 255);
+    background-color: $blue;
 }
 
 .green {
-    background-color: rgb(0, 212, 0);
+    background-color: $green;
 }
 
 .yellow {
-    background-color: rgb(249, 226, 20);
+    background-color: $yellow;
 }
 
 .orange {
-    background-color: rgb(255, 172, 20);
+    background-color: $orange;
 }
 
 .red {
-    background-color: rgb(255, 20, 20);
+    background-color: $red;
 }

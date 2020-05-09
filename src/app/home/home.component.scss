@@ -1,3 +1,5 @@
+@import "../../variables";
+
 .home-container {
     display: flex;
     flex-direction: column;
@@ -9,8 +11,7 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 4em;
     font-weight: bold;
-    color: gray;
-    //margin-bottom: 100px;
+    color: $gray;
 }
 
 .home-toolbar {
@@ -20,7 +21,7 @@
     align-items: center;
     width: calc(100vw - 90px);
     padding: 0 45px;
-    color: gray;
+    color: $gray;
     font-family: 'Montserrat', 'sans-serif';
     font-weight: 400;
     font-size: 18px;
@@ -33,7 +34,7 @@
     }
 
     .link:hover {
-        color: #20aaff;
+        color: $button-color;
     }
 }
 
@@ -55,5 +56,5 @@
     height: 20px;
     width: 2px;
     border-radius: 25px;
-    background-color: gray;
+    background-color: $gray;
 }
