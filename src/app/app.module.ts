@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-// import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
@@ -34,7 +34,7 @@ const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} }
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    // NgbTooltipModule
+    NgbTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

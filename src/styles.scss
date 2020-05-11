@@ -12,3 +12,10 @@ body {
     font-weight: bold;
     color: $gray;
 }
+
+.error-tooltip {
+    .tooltip-inner {
+        //background-color: red;
+        text-align: left;
+    }
+}

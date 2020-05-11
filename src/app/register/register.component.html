@@ -3,18 +3,38 @@
     
     <form [formGroup]="registerForm" class="form">
 
+        <!-- Username Field -->
         <div class="input-container">
             <input formControlName="username" type="text" 
-                name="username" class="register-input" placeholder="Username" required>
-            <div *ngIf="username.invalid && (username.dirty || username.touched)">
-                <span class="error-icon">
+                name="username" class="register-input" placeholder="Username">
+            <ng-container *ngIf="username.invalid && (username.dirty || username.touched)">
+                <span class="error-icon" placement="right" tooltipClass="error-tooltip" [ngbTooltip]="usernameErrors">
                     <i class="fas fa-times-circle"></i>
                 </span>
-            </div>
+            </ng-container>
         </div>
 
-        <input type="password" name="password" class="register-input" placeholder="Password">
-        <input type="password" name="passwordConfirm" class="register-input" placeholder="Confirm Password">
+        <!-- Password Field -->
+        <div class="input-container">
+            <input formControlName="password" type="password" 
+                name="password" class="register-input" placeholder="Password">
+            <ng-container *ngIf="password.invalid && (password.dirty || password.touched)">
+                <span class="error-icon" placement="right" tooltipClass="error-tooltip" [ngbTooltip]="passwordErrors">
+                    <i class="fas fa-times-circle"></i>
+                </span>
+            </ng-container>
+        </div>
+
+        <!-- Password Confirmation Field -->
+        <div class="input-container">
+            <input formControlName="passwordConfirm" type="password" 
+                name="passwordConfirm" class="register-input" placeholder="Confirm Password">
+            <ng-container *ngIf="passwordConfirm.invalid && (passwordConfirm.dirty || passwordConfirm.touched)">
+                <span class="error-icon" placement="right" tooltipClass="error-tooltip" [ngbTooltip]="passwordConfirmErrors">
+                    <i class="fas fa-times-circle"></i>
+                </span>
+            </ng-container>
+        </div>
 
         <button type="submit" class="the-register-button" (click)="submit()">Submit</button>
     </form>
@@ -22,3 +42,24 @@
     <p class="link">go to <a routerLink="/login">login</a></p>
     <p class="link">return <a routerLink="/">home</a></p>
 </div>
+
+<!-- Templates for displaying username field errors in tooltip -->
+<ng-template #usernameErrors>
+    <ul [style.padding-left.px]="25" *ngFor="let error of username.errors | keyvalue">
+        <li>{{ error.value }}</li>
+    </ul>
+</ng-template>
+
+<!-- Templates for displaying password field errors in tooltip -->
+<ng-template #passwordErrors>
+    <ul [style.padding-left.px]="25" *ngFor="let error of password.errors | keyvalue">
+        <li>{{ error.value }}</li>
+    </ul>
+</ng-template>
+
+<!-- Templates for displaying passwordConfirm field errors in tooltip -->
+<ng-template #passwordConfirmErrors>
+    <ul [style.padding-left.px]="25" *ngFor="let error of passwordConfirm.errors | keyvalue">
+        <li>{{ error.value }}</li>
+    </ul>
+</ng-template>
