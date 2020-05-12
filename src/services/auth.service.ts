@@ -10,10 +10,13 @@ export class AuthService {
 
   constructor( private http: HttpClient ) { }
 
-  validateUsername(username: string): void {
+  /** check username availability from server */
+  checkUsernameAvailability(username: string) {
+    return this.http.post(`${this.API_URL}/auth/check-username`, { username })
   }
 
+  /** send login POST request to server with credentials */
   login(username: string, password: string) {
-    return this.http.post(`${this.API_URL}/login`, { username, password });
+    return this.http.post(`${this.API_URL}/auth/login`, { username, password });
   }
 }

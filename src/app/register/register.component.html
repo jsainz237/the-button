@@ -5,38 +5,30 @@
 
         <!-- Username Field -->
         <div class="input-container">
-            <input formControlName="username" type="text" 
-                name="username" class="register-input" placeholder="Username">
-            <ng-container *ngIf="username.invalid && (username.dirty || username.touched)">
-                <span class="error-icon" placement="right" tooltipClass="error-tooltip" [ngbTooltip]="usernameErrors">
-                    <i class="fas fa-times-circle"></i>
-                </span>
-            </ng-container>
+            <input formControlName="username" type="text" name="username" class="register-input" placeholder="Username">
+            <span *ngIf="showError(username)" class="error-icon" placement="right" tooltipClass="error-tooltip" [ngbTooltip]="usernameErrors">
+                <i class="fas fa-times-circle"></i>
+            </span>
         </div>
 
         <!-- Password Field -->
         <div class="input-container">
-            <input formControlName="password" type="password" 
-                name="password" class="register-input" placeholder="Password">
-            <ng-container *ngIf="password.invalid && (password.dirty || password.touched)">
-                <span class="error-icon" placement="right" tooltipClass="error-tooltip" [ngbTooltip]="passwordErrors">
-                    <i class="fas fa-times-circle"></i>
-                </span>
-            </ng-container>
+            <input formControlName="password" type="password" name="password" class="register-input" placeholder="Password">
+            <span *ngIf="showError(password)" class="error-icon" placement="right" tooltipClass="error-tooltip" [ngbTooltip]="passwordErrors">
+                <i class="fas fa-times-circle"></i>
+            </span>
         </div>
 
         <!-- Password Confirmation Field -->
         <div class="input-container">
-            <input formControlName="passwordConfirm" type="password" 
-                name="passwordConfirm" class="register-input" placeholder="Confirm Password">
-            <ng-container *ngIf="passwordConfirm.invalid && (passwordConfirm.dirty || passwordConfirm.touched)">
-                <span class="error-icon" placement="right" tooltipClass="error-tooltip" [ngbTooltip]="passwordConfirmErrors">
-                    <i class="fas fa-times-circle"></i>
-                </span>
-            </ng-container>
+            <input formControlName="passwordConfirm" type="password" name="passwordConfirm" class="register-input" placeholder="Confirm Password">
+            <span *ngIf="showError(passwordConfirm)" class="error-icon" placement="right" tooltipClass="error-tooltip" [ngbTooltip]="passwordConfirmErrors">
+                <i class="fas fa-times-circle"></i>
+            </span>
         </div>
 
-        <button type="submit" class="the-register-button" (click)="submit()">Submit</button>
+        <button [disabled]="submitDisabled()" [ngClass]="submitDisabled() ? 'disabled' : null" 
+            type="submit" class="the-register-button" (click)="submit()">Submit</button>
     </form>
 
     <p class="link">go to <a routerLink="/login">login</a></p>

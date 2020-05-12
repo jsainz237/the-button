@@ -42,6 +42,10 @@
     background-color: $button-color;
     padding: 10px 0px;
     border-style: none;
+
+    &.disabled {
+        opacity: 0.3;
+    }
 }
 
 .link {

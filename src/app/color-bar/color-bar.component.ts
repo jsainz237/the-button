@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Rank } from 'src/models/user';
 import { Subscription, Observable } from 'rxjs';
@@ -11,9 +11,8 @@ import { ColorState } from 'src/state/color/color.reducer';
   templateUrl: './color-bar.component.html',
   styleUrls: ['./color-bar.component.scss']
 })
-export class ColorBarComponent implements OnInit {
+export class ColorBarComponent implements OnInit, OnDestroy {
   _resetListener: Subscription;
-  _deathListener: Subscription;
   _updateColorListener: Subscription;
 
   _colorSub: Subscription;
@@ -44,5 +43,10 @@ export class ColorBarComponent implements OnInit {
     this._updateColorListener = this.eventsService.updateColorListener.subscribe(({ color, index }) => {
       this.store.dispatch(setColor({ color, index }))
     });
+  }
+
+  ngOnDestroy() {
+    this._colorSub.unsubscribe();
+    this._updateColorListener.unsubscribe();
   }
 }

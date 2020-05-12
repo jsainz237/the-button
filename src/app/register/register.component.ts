@@ -1,94 +1,79 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/services/auth.service';
-import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
+import { requiredValidator, customPatternCheck, 
+  lengthValidator, matchingPasswordValidator 
+} from '../utils/validators';
+import { Subscription, Observable } from 'rxjs';
+import { debounceTime, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
-  errorMap: string[] = [
-
-  ]
+  usernameAvailable: boolean;
+  
+  _usernameAvailableSub: Subscription;
 
   constructor(private authService: AuthService) { }
-  // /^[a-zA-Z0-9]+$/
+
   ngOnInit() {
+    this.configureForm();
+
+    this._usernameAvailableSub = this.username.valueChanges.pipe(
+      debounceTime(1000), // wait until username stops changing for 1 second
+      switchMap((name: string) => name.length !== 0 && this.username.valid ? // after response from valueChanges comes back (switchMap)
+        this.authService.checkUsernameAvailability(name.toLowerCase()) :     // get Aavailability subscription with response
+        new Observable())
+    ).subscribe((res: { available: boolean}) => console.log(res.available));
+  }
+
+  ngOnDestroy() {
+    this._usernameAvailableSub.unsubscribe();
+  }
+
+  /** configure form, controls, and validators */
+  configureForm() {
     this.registerForm = new FormGroup({
       'username': new FormControl('', [
-        this.requiredValidator('username is required'),
-        this.customPatternCheck(new RegExp(/^[a-zA-Z0-9]+$/), 'username must be alphanumeric')
+        requiredValidator('username is required'),
+        customPatternCheck(new RegExp(/^[a-zA-Z0-9]+$/), 'username must be alphanumeric')
       ]),
       'password': new FormControl('', [
-        this.requiredValidator('password is required'),
-        this.lengthValidator(8, "MIN", 'password must be at least 8 characters'),
-        this.lengthValidator(64, "MAX", 'password must be less than 64 characters'),
-        this.customPatternCheck(new RegExp(/\d/), 'password must contain a number'),
-        this.customPatternCheck(new RegExp(/[A-Z]/), 'password must contain a capital letter'),
-        this.customPatternCheck(new RegExp(/[a-z]/), 'password must contain a lowercase letter'),
-        this.customPatternCheck(new RegExp(/[!?(){}_\\-\\.$#&]/), 'password must contain a special character'),
-        this.customPatternCheck(new RegExp(/^((?!')(?!").)*$/), 'password cannot contain \' or \" characters'),
+        requiredValidator('password is required'),
+        lengthValidator(8, "MIN", 'password must be at least 8 characters'),
+        lengthValidator(64, "MAX", 'password must be less than 64 characters'),
+        customPatternCheck(new RegExp(/\d/), 'password must contain a number'),
+        customPatternCheck(new RegExp(/[A-Z]/), 'password must contain a capital letter'),
+        customPatternCheck(new RegExp(/[a-z]/), 'password must contain a lowercase letter'),
+        customPatternCheck(new RegExp(/[!?(){}_\\-\\.$#&]/), 'password must contain a special character'),
+        customPatternCheck(new RegExp(/^((?!')(?!").)*$/), 'password cannot contain \' or \" characters'),
       ]),
       'passwordConfirm': new FormControl('', [])
     }, {
-      validators: [ this.matchingPasswordValidator() ]
+      validators: [ matchingPasswordValidator() ]
     })
-  }
-
-  // check if required field is filled out
-  private requiredValidator(errorMsg: string): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      let isValid: boolean = false;
-      if(control.value && !control.value.empty) {
-        isValid = true;
-      }
-      return isValid ? null : {'isRequired': errorMsg};
-    };
-  }
-
-  // check that input is a valid length
-  private lengthValidator(length: number, rule: "MIN" | "MAX", errorMsg: string): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      let validLength: boolean;
-      if(rule === "MIN") {
-        validLength = control.value.length >= length;
-      } else {
-        validLength = control.value.length <= length
-      }
-      return validLength ? null : {'InvalidLength': errorMsg};
-    };
-  }
-
-  // check if input matches a regex pattern
-  private customPatternCheck(pattern: RegExp, errorMsg: string): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const validPattern = pattern.test(control.value);
-      return validPattern ? null : {'invalidPattern': errorMsg};
-    };
-  }
-
-  // check if password fields match
-  private matchingPasswordValidator(): ValidatorFn {
-    return (formGroup: FormGroup): ValidationErrors | null => {
-      const pwdControl = formGroup.controls.password;
-      const pwdConfControl = formGroup.controls.passwordConfirm;
-
-      pwdControl.value !== pwdConfControl.value ? 
-        pwdConfControl.setErrors({ 'matchingPasswordValidator': 'password fields do not match' }) :
-        null;
-
-      return null;
-    };
   }
 
   get username() { return this.registerForm.get('username') }
   get password() { return this.registerForm.get('password') }
   get passwordConfirm() { return this.registerForm.get('passwordConfirm') }
 
+  /** Whether to show Error icon on input field */
+  showError(control: AbstractControl): boolean {
+    return control.invalid && (control.dirty || control.touched);
+  }
+
+  /** Determines if form submit button is disabled */
+  submitDisabled(): boolean {
+    return this.username.invalid || this.password.invalid || this.passwordConfirm.invalid;
+  }
+
   submit() {
-    console.log(this.registerForm.get('password').errors)
+    console.log("SUBMITTED");
   }
 
 }
