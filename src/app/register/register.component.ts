@@ -4,8 +4,8 @@ import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import { requiredValidator, customPatternCheck, 
   lengthValidator, matchingPasswordValidator 
 } from '../utils/validators';
-import { Subscription, Observable } from 'rxjs';
-import { debounceTime, switchMap } from 'rxjs/operators';
+import { Subscription, Observable, concat } from 'rxjs';
+import { debounceTime, switchMap, take, startWith, first, skip } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -14,8 +14,9 @@ import { debounceTime, switchMap } from 'rxjs/operators';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
-  usernameAvailable: boolean;
+  showUsernameCheckmark: boolean = false;
   
+  _changesSub: Subscription;
   _usernameAvailableSub: Subscription;
 
   constructor(private authService: AuthService) { }
@@ -23,17 +24,27 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.configureForm();
 
+    this._changesSub = this.username.valueChanges.subscribe(() => this.showUsernameCheckmark = false);
+
     this._usernameAvailableSub = this.username.valueChanges.pipe(
       debounceTime(1000), // wait until username stops changing for 1 second
-      switchMap((name: string) => name.length !== 0 && this.username.valid ? // after response from valueChanges comes back (switchMap)
-        this.authService.checkUsernameAvailability(name.toLowerCase()) :     // get Aavailability subscription with response
-        new Observable())
-    ).subscribe((res: { available: boolean}) => console.log(res.available));
+      switchMap((name: string) => this.getUsernameAvailability(name))
+    ).subscribe((res: { available: boolean}) => {
+      !res.available ?
+        this.username.setErrors({ taken: 'username is already taken' }) :
+        this.showUsernameCheckmark = true;
+        //console.log(true);
+    });
   }
 
   ngOnDestroy() {
+    this._changesSub.unsubscribe();
     this._usernameAvailableSub.unsubscribe();
   }
+
+  get username() { return this.registerForm.get('username') }
+  get password() { return this.registerForm.get('password') }
+  get passwordConfirm() { return this.registerForm.get('passwordConfirm') }
 
   /** configure form, controls, and validators */
   configureForm() {
@@ -58,9 +69,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
     })
   }
 
-  get username() { return this.registerForm.get('username') }
-  get password() { return this.registerForm.get('password') }
-  get passwordConfirm() { return this.registerForm.get('passwordConfirm') }
+  /** trigger observable to check username availability from authService */
+  getUsernameAvailability(name: string): Observable<any> {
+    if(name.length !== 0 && this.username.valid) {
+      return this.authService.checkUsernameAvailability(name.toLocaleLowerCase())
+    }
+
+    return new Observable();
+  }
 
   /** Whether to show Error icon on input field */
   showError(control: AbstractControl): boolean {
@@ -69,11 +85,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   /** Determines if form submit button is disabled */
   submitDisabled(): boolean {
-    return this.username.invalid || this.password.invalid || this.passwordConfirm.invalid;
+    return !this.showUsernameCheckmark || this.username.invalid || this.password.invalid || this.passwordConfirm.invalid;
   }
 
   submit() {
-    console.log("SUBMITTED");
+    console.log("SUBMITTED")
   }
 
 }

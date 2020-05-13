@@ -6,6 +6,22 @@ body {
     margin: 0
 }
 
+.error-icon {
+    position: absolute;
+    font-size: 1.5em;
+    color: $red;
+    right: -50px;
+    top: 5px;
+}
+
+.checkmark-icon {
+    position: absolute;
+    font-size: 1.5em;
+    color: $green;
+    right: -50px;
+    top: 5px;
+}
+
 .title {
     font-family: 'Montserrat', sans-serif;
     font-size: 4em;
@@ -15,7 +31,15 @@ body {
 
 .error-tooltip {
     .tooltip-inner {
-        //background-color: red;
+        padding: 10px;
         text-align: left;
+    }
+
+    ul {
+        margin: 0;
+
+        li {
+            margin: 5px 0;
+        }
     }
 }

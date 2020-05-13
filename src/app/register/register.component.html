@@ -9,6 +9,9 @@
             <span *ngIf="showError(username)" class="error-icon" placement="right" tooltipClass="error-tooltip" [ngbTooltip]="usernameErrors">
                 <i class="fas fa-times-circle"></i>
             </span>
+            <span *ngIf="showUsernameCheckmark" class="checkmark-icon">
+                <i class="fas fa-check-circle"></i>
+            </span>
         </div>
 
         <!-- Password Field -->
@@ -17,6 +20,9 @@
             <span *ngIf="showError(password)" class="error-icon" placement="right" tooltipClass="error-tooltip" [ngbTooltip]="passwordErrors">
                 <i class="fas fa-times-circle"></i>
             </span>
+            <span *ngIf="password.valid" class="checkmark-icon">
+                <i class="fas fa-check-circle"></i>
+            </span>
         </div>
 
         <!-- Password Confirmation Field -->
@@ -24,6 +30,9 @@
             <input formControlName="passwordConfirm" type="password" name="passwordConfirm" class="register-input" placeholder="Confirm Password">
             <span *ngIf="showError(passwordConfirm)" class="error-icon" placement="right" tooltipClass="error-tooltip" [ngbTooltip]="passwordConfirmErrors">
                 <i class="fas fa-times-circle"></i>
+            </span>
+            <span *ngIf="password.valid && passwordConfirm.valid" class="checkmark-icon">
+                <i class="fas fa-check-circle"></i>
             </span>
         </div>
 
