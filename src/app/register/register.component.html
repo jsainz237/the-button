@@ -1,4 +1,4 @@
-<div class="register-container" [formGroup]="registerForm">
+<div class="register container" *ngIf="!success">
     <h1 class="title" [style.margin-bottom.px]="25">THE REGISTER</h1>
     
     <form [formGroup]="registerForm" class="form">
@@ -43,6 +43,9 @@
     <p class="link">go to <a routerLink="/login">login</a></p>
     <p class="link">return <a routerLink="/">home</a></p>
 </div>
+
+<!-- on success show Success component -->
+<app-success *ngIf="success"></app-success>
 
 <!-- Templates for displaying username field errors in tooltip -->
 <ng-template #usernameErrors>

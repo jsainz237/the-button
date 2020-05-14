@@ -1,15 +1,5 @@
 @import "../../variables";
 
-.register-container {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Montserrat', sans-serif;
-}
-
 .input-container {
     display: flex;
     position: relative;
@@ -37,17 +27,6 @@
 
     &.disabled {
         opacity: 0.3;
-    }
-}
-
-.link {
-    margin-top: 10px;
-    margin-bottom: 0;
-    text-decoration: none;
-    font-size: 1em;
-
-    a {
-        color: $button-color;
     }
 }
 

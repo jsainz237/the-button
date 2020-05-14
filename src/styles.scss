@@ -6,6 +6,28 @@ body {
     margin: 0
 }
 
+.container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.link {
+    margin-top: 10px;
+    margin-bottom: 0;
+    text-decoration: none;
+    font-size: 1em;
+    color: $gray;
+
+    a {
+        color: $button-color;
+    }
+}
+
 .error-icon {
     position: absolute;
     font-size: 1.5em;
