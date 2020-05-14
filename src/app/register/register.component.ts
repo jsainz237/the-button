@@ -6,6 +6,7 @@ import { requiredValidator, customPatternCheck,
 } from '../utils/validators';
 import { Subscription, Observable, concat } from 'rxjs';
 import { debounceTime, switchMap, take, startWith, first, skip } from 'rxjs/operators';
+import { setUser } from 'src/state/user/user.actions';
 
 @Component({
   selector: 'app-register',
@@ -18,6 +19,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
   
   _changesSub: Subscription;
   _usernameAvailableSub: Subscription;
+
+  serverErrors: string[];
+  success: boolean = false;
 
   constructor(private authService: AuthService) { }
 
@@ -89,7 +93,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    console.log("SUBMITTED")
+    this.authService.register(this.username.value, this.password.value)
+      .subscribe(({ success, id, errors }) => {
+        if(success) {
+          this.success = success
+          setUser({ username: this.username.value, id: id });
+        }
+        else {
+          console.log(errors)
+        }
+      });
   }
 
 }

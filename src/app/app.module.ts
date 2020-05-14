@@ -14,6 +14,8 @@ import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { colorReducer } from 'src/state/color/color.reducer';
 import { RegisterComponent } from './register/register.component';
+import { SuccessComponent } from './success/success.component';
+import { userReducer } from 'src/state/user/user.reducer';
 
 const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} }
 
@@ -24,13 +26,17 @@ const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} }
     HomeComponent,
     ColorBarComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    SuccessComponent
   ],
   imports: [
     BrowserModule,
     SocketIoModule.forRoot(config),
     AppRoutingModule,
-    StoreModule.forRoot({ color: colorReducer }),
+    StoreModule.forRoot({ 
+      color: colorReducer,
+      user: userReducer 
+    }),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
