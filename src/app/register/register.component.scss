@@ -1,5 +1,11 @@
 @import "../../variables";
 
+.register {
+    .link {
+        margin: 10px 0 0 0;
+    }
+}
+
 .input-container {
     display: flex;
     position: relative;

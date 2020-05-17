@@ -30,7 +30,7 @@ export class AuthService {
 
   /** send login POST request to server with credentials */
   login(username: string, password: string) {
-    return this.http.post<APIResponse>(`${this.API_URL}/auth/login`, { username, password }, {
+    return this.http.post<APIResponse & { id: string }>(`${this.API_URL}/auth/login`, { username, password }, {
       headers: {
         'Content-Type': 'application/json'
       }

@@ -7,6 +7,7 @@ import { requiredValidator, customPatternCheck,
 import { Subscription, Observable, concat } from 'rxjs';
 import { debounceTime, switchMap, take, startWith, first, skip } from 'rxjs/operators';
 import { setUser } from 'src/state/user/user.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +24,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
   serverErrors: string[];
   success: boolean = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private store: Store,
+  ) { }
 
   ngOnInit() {
     this.configureForm();
@@ -97,7 +101,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       .subscribe(({ success, id, errors }) => {
         if(success) {
           this.success = success
-          setUser({ username: this.username.value, id: id });
+          this.store.dispatch(setUser({ username: this.username.value, id: id }));
         }
         else {
           console.log(errors)

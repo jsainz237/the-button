@@ -7,28 +7,31 @@
     min-height: 500px;
 }
 
+.home-link {
+    color: $gray;
+    text-decoration: none;
+    background: none;
+    border: none;
+    margin: 0;
+
+    &:hover {
+        color: $button-color;
+        text-decoration: underline;
+    }
+}
+
 .home-toolbar {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     width: calc(100vw - 90px);
+    margin-top: 15px;
     padding: 0 45px;
     color: $gray;
     font-family: 'Montserrat', 'sans-serif';
     font-weight: 400;
     font-size: 18px;
-
-    .link {
-        margin: 18px 0;
-        text-decoration: none;
-        color: gray;
-        transition: color 0.3s ease;
-    }
-
-    .link:hover {
-        color: $button-color;
-    }
 }
 
 .home-content {
