@@ -10,13 +10,27 @@
 .home-link {
     color: $gray;
     text-decoration: none;
-    background: none;
-    border: none;
     margin: 0;
+    cursor: pointer;
 
     &:hover {
         color: $button-color;
         text-decoration: underline;
+    }
+}
+
+.userinfo {
+    text-decoration: none;
+    margin: 0;
+    margin-right: 15px;
+    cursor: auto;
+}  
+
+.home-link.loggedIn {
+    cursor: auto;
+
+    &:hover {
+        text-decoration: none;
     }
 }
 

@@ -20,12 +20,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private eventsService: EventsService,
+    public authService: AuthService,
     private store: Store<{ user: UserState }>
   ) { }
 
   ngOnInit() {
     this._userSub = this.store.pipe(select('user')).subscribe(user => {
-      console.log("HELLO")
       this.user = user;
     });
 
@@ -38,6 +38,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this._userSub.unsubscribe();
     this._deathListener.unsubscribe();
+  }
+
+  get userInfo() { return this.authService.isLoggedIn ? this.authService.userProfile.nickname : 'Sign in' }
+
+  login() {
+    !this.authService.isLoggedIn ? this.authService.login() : null;
+  }
+
+  logout() {
+    this.authService.isLoggedIn ? this.authService.logout() : null;
   }
 
 }

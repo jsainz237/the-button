@@ -13,8 +13,6 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.login(this.username, this.password)
-      .subscribe(data => console.log(data));
   }
 
   submit() {

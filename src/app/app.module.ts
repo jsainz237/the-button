@@ -16,6 +16,8 @@ import { colorReducer } from 'src/state/color/color.reducer';
 import { RegisterComponent } from './register/register.component';
 import { SuccessComponent } from './success/success.component';
 import { userReducer } from 'src/state/user/user.reducer';
+import { AuthService } from 'src/services/auth.service';
+import { CallbackComponent } from './callback/callback.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} }
 
@@ -27,7 +29,8 @@ const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} }
     ColorBarComponent,
     LoginComponent,
     RegisterComponent,
-    SuccessComponent
+    SuccessComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,7 @@ const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} }
     HttpClientModule,
     NgbTooltipModule
   ],
-  providers: [],
+  providers: [ AuthService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

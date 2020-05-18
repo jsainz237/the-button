@@ -1,35 +1,24 @@
 <div class="home container">
+
     <div class="home-toolbar">
         <a routerLink="/instructions" class="link">Instructions</a>
         <div class="home-auth-wrapper">
-            <a *ngIf="!user.username" routerLink="/login" class="home-link" [style.margin-right.px]="15">Login</a>
-            <p *ngIf="user.username" [ngStyle]="{
-                'margin.px': 0,
-                'margin-right.px': 15
-            }">{{ user.username }}</p>
+            <a [ngClass]="authService.isLoggedIn ? 'userinfo' : 'home-link'" 
+                [style.color]="authService.isLoggedIn ? 'red': null"
+                (click)="login()"
+            >{{ userInfo }}</a>
             
-            <div [style.margin-right.px]="15" class="auth-separator"></div>
+            <div *ngIf="authService.isLoggedIn" [style.margin-right.px]="15" class="auth-separator"></div>
 
-            <a *ngIf="!user.username" routerLink="/register" class="home-link">Register</a>
-            <button *ngIf="user.username" class="home-link">Sign out</button>
+            <a *ngIf="authService.isLoggedIn" (click)="logout()" class="home-link">Sign out</a>
         </div>
     </div>
+
     <div class="home-content">
         <h1 class="title">THE BUTTON</h1>
         <app-color-bar *ngIf="!isDead"></app-color-bar>
         <app-the-button *ngIf="!isDead"></app-the-button>
         <img src="{{ this.gifLink }}" *ngIf="isDead" />
     </div>
-</div>
-
-<ng-template #noUser>
     
-    <div [style.margin-right.px]="15" class="auth-separator"></div>
-    <a routerLink="/register" class="link">Register</a>
-</ng-template>
-
-<ng-template #activeUser>
-    <p [style.margin-right.px]="15">{{ user.username }}</p>
-    <div [style.margin-right.px]="15" class="auth-separator"></div>
-    <button class="link">Sign out</button>
-</ng-template>
+</div>
