@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Validators } from '@angular/forms';
 import * as auth0 from 'auth0-js';
 import { environment } from '../environments/environment';
 import { Store } from '@ngrx/store';
-import { setUser } from 'src/state/user/user.actions';
 import { Rank } from 'src/models/user';
+import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 (window as any).global = window;
 
@@ -46,6 +46,34 @@ export class AuthService {
     this.getAccessToken();
   }
 
+  checkNameAvailable(name: string) {
+    return this.http.post<{ available: boolean }>(
+      `${environment.api_url}/auth/check-displayname`,
+      { displayname: name },
+      { headers: new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`) }
+    );
+  }
+
+  editDisplayname(name: string) {
+    return this.http.post(
+      `${environment.api_url}/auth/edit-displayname`,
+      { displayname: name },
+      { headers: new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`) }
+    );
+  }
+
+  getRank(email: string) {
+    return this.http.post<APIResponse>(
+      `${environment.api_url}/auth/userinfo`,
+      { email },
+      { headers: new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`)}
+    ).pipe(
+      catchError(err => new Observable(err))
+    )
+  }
+
+  //------- AUTH0 FUNCTIONS ----------//
+
   login() {
     // Auth0 authorize request
     this.auth0.authorize();
@@ -76,6 +104,7 @@ export class AuthService {
     // Use access token to retrieve user's profile and set session
     this.auth0.client.userInfo(authResult.accessToken, (err, profile) => {
       if (profile) {
+        console.log(profile)
         this._setSession(authResult, profile);
       }
     });
