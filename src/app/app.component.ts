@@ -12,6 +12,9 @@ export class AppComponent {
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    
+    if(this.authService.isLoggedIn) {
+      this.authService.getRank(this.authService.userProfile.email)
+        .subscribe(({ email, rank }) => console.log(rank))
+    }
   }
 }

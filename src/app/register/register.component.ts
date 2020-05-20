@@ -80,7 +80,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   /** trigger observable to check username availability from authService */
   getUsernameAvailability(name: string): Observable<any> {
     if(name.length !== 0 && this.username.valid) {
-      return this.authService.checkUsernameAvailability(name.toLocaleLowerCase())
+      // return this.authService.checkUsernameAvailability(name.toLocaleLowerCase())
     }
 
     return new Observable();
@@ -97,16 +97,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    this.authService.register(this.username.value, this.password.value)
-      .subscribe(({ success, id, errors }) => {
-        if(success) {
-          this.success = success
-          this.store.dispatch(setUser({ username: this.username.value, id: id }));
-        }
-        else {
-          console.log(errors)
-        }
-      });
+    // this.authService.register(this.username.value, this.password.value)
+    //   .subscribe(({ success, id, errors }) => {
+    //     if(success) {
+    //       this.success = success
+    //       this.store.dispatch(setUser({ username: this.username.value, id: id }));
+    //     }
+    //     else {
+    //       console.log(errors)
+    //     }
+    //   });
   }
 
 }

@@ -1,0 +1,48 @@
+@import '../../variables';
+
+.form {
+    padding: 0 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    label {
+        font-size: 12px;
+        color: $gray
+    }
+
+    input {
+        width: 200px;
+        font-size: 16px;
+        color: $gray;
+        border-radius: 5px;
+        border: 1px solid rgba(128, 128, 128, 0.4);
+        padding: 5px;
+        text-align: left;
+    }
+}
+
+.form-button {
+    border: none;
+    background: $button-color;
+    color: white;
+    padding: 5px 15px;
+    margin-right: 25px;
+    border-radius: 5px;
+    opacity: 1;
+}
+
+.form-button.disabled {
+    opacity: 0.3;
+}
+
+.bottom-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+}
