@@ -1,0 +1,20 @@
+@import "../../variables";
+
+.feed-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.feed-list-item {
+    color: $gray;
+    margin: 2.5px 0;
+}
+
+.feed-list-name {
+    color: $dark-gray;
+}

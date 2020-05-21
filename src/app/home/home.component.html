@@ -30,6 +30,7 @@
         <h1 class="title">THE BUTTON</h1>
         <app-color-bar *ngIf="!isDead"></app-color-bar>
         <app-the-button *ngIf="!isDead"></app-the-button>
+        <app-feed *ngIf="!isDead"></app-feed>
         <img src="{{ this.gifLink }}" *ngIf="isDead" />
     </div>
     

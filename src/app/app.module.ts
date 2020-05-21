@@ -19,6 +19,7 @@ import { userReducer } from 'src/state/user/user.reducer';
 import { AuthService } from 'src/services/auth.service';
 import { CallbackComponent } from './callback/callback.component';
 import { SettingsFormComponent } from './settings-form/settings-form.component';
+import { FeedComponent } from './feed/feed.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} }
 
@@ -32,7 +33,8 @@ const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} }
     RegisterComponent,
     SuccessComponent,
     CallbackComponent,
-    SettingsFormComponent
+    SettingsFormComponent,
+    FeedComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,10 @@
+<ng-container *ngIf="loaded">
+    <ul class="feed-list">
+        <li class="feed-list-item" *ngFor="let item of feed; let index=index" [style.opacity]="calculateOpacity(index)">
+            <span class='feed-list-name'>{{ item.displayname }}</span>
+             is now 
+            <span [style.color]="rankColorMap[item.rank]">{{ item.rank }}</span>
+             team
+        </li>
+    </ul>
+</ng-container>
