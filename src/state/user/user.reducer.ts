@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { setUser, clearUser } from './user.actions';
-import { Rank } from 'src/models/user';
+import { Rank } from 'src/types/rank';
 
 export interface UserState {
     displayname: string;

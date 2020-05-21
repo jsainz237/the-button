@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import * as auth0 from 'auth0-js';
 import { environment } from '../environments/environment';
 import { Store } from '@ngrx/store';
-import { Rank } from 'src/models/user';
+import { Rank } from 'src/types/rank';
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { setUser } from 'src/state/user/user.actions';

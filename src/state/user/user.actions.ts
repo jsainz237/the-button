@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Rank } from 'src/models/user';
+import { Rank } from 'src/types/rank';
 
 export interface SetUserPayload {
     displayname: string;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Rank } from 'src/models/user';
+import { Rank } from 'src/types/rank';
 import { Subject } from 'rxjs';
 
 @Injectable({

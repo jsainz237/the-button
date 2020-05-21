@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { User, Rank } from '../models/user';
+import { User } from '../models/user';
 import { SocketEvents } from '../types/events';
+import { Rank } from 'src/types/rank';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class EventsService {
 
   constructor(private socket: Socket) { }
 
-  sendPressEvent(username?: string) {
-    this.socket.emit(SocketEvents.PRESSED, username);
+  sendPressEvent(displayname?: string) {
+    this.socket.emit(SocketEvents.PRESSED, displayname);
   }
 }

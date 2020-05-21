@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Rank } from 'src/models/user';
 import { Subscription, Observable } from 'rxjs';
+import { Rank } from 'src/types/rank';
 import { EventsService } from '../../services/events.service';
 import { setColor } from '../../state/color/color.actions';
 import { ColorState } from 'src/state/color/color.reducer';
