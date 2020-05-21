@@ -3,7 +3,13 @@
     <div class="home-toolbar">
         <a routerLink="/instructions" class="home-link">Instructions</a>
         <div class="home-auth-wrapper">
-            <span class="home-rank-icon" *ngIf="this.authService.isLoggedIn" [style.color]="rankColor">
+            <span 
+                class="home-rank-icon" 
+                *ngIf="this.authService.isLoggedIn" 
+                [style.color]="rankColor"
+                placement="bottom"
+                [ngbTooltip]="user.rank + ' TEAM!'"
+            >
                 <i class="fas fa-bookmark"></i>
             </span>
             <a [ngClass]="authService.isLoggedIn ? 'userinfo' : 'home-link'" (click)="login()">{{ userInfo }}</a>
