@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
-import { customPatternCheck } from '../utils/validators';
+import { customPatternCheck } from '../../utils/validators';
 import { Subscription, Observable } from 'rxjs';
 import { AuthService } from 'src/services/auth.service';
 import { debounceTime, switchMap } from 'rxjs/operators';

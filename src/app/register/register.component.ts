@@ -3,7 +3,7 @@ import { AuthService } from 'src/services/auth.service';
 import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import { requiredValidator, customPatternCheck, 
   lengthValidator, matchingPasswordValidator 
-} from '../utils/validators';
+} from '../../utils/validators';
 import { Subscription, Observable, concat } from 'rxjs';
 import { debounceTime, switchMap, take, startWith, first, skip } from 'rxjs/operators';
 import { setUser } from 'src/state/user/user.actions';
