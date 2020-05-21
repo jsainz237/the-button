@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { EventsService } from '../../services/events.service';
 import { Subscription } from 'rxjs';
-import { UserState } from 'src/state/user/user.reducer';
+import { Rank, RankColorMap } from 'src/types/rank';
 import { AuthService } from 'src/services/auth.service';
 import { Store, select } from '@ngrx/store';
+import { User } from 'src/models/user';
 
 @Component({
   selector: 'app-home',
@@ -11,8 +12,9 @@ import { Store, select } from '@ngrx/store';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  user: UserState;
+  user: User;
   _userSub: Subscription;
+  rankColorMap = RankColorMap;
 
   isDead: boolean = false;
   _deathListener: Subscription;
@@ -21,7 +23,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private eventsService: EventsService,
     public authService: AuthService,
-    private store: Store<{ user: UserState }>
+    private store: Store<{ user: User }>
   ) { }
 
   ngOnInit() {
@@ -40,6 +42,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this._deathListener.unsubscribe();
   }
 
+  get rankColor() { return this.authService.isLoggedIn ? this.rankColorMap[this.user.rank] : null }
   get userInfo() { return this.authService.isLoggedIn ? this.user.displayname : 'Sign in' }
 
   login() {

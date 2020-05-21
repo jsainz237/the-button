@@ -3,10 +3,10 @@
     <div class="home-toolbar">
         <a routerLink="/instructions" class="home-link">Instructions</a>
         <div class="home-auth-wrapper">
-            <a [ngClass]="authService.isLoggedIn ? 'userinfo' : 'home-link'" 
-                [style.color]="authService.isLoggedIn ? 'red': null"
-                (click)="login()"
-            >{{ userInfo }}</a>
+            <span class="home-rank-icon" *ngIf="this.authService.isLoggedIn" [style.color]="rankColor">
+                <i class="fas fa-bookmark"></i>
+            </span>
+            <a [ngClass]="authService.isLoggedIn ? 'userinfo' : 'home-link'" (click)="login()">{{ userInfo }}</a>
 
             <div ngbDropdown *ngIf="authService.isLoggedIn">
                 <span ngbDropdownToggle class='home-icon'><i class="fas fa-cog"></i></span>
