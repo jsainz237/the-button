@@ -1,8 +1,9 @@
 import { createAction, props } from '@ngrx/store';
+import { Rank } from 'src/models/user';
 
 export interface SetUserPayload {
-    id: string;
-    username: string;
+    displayname: string;
+    rank: Rank;
 };
 
 export const setUser = createAction(

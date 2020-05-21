@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this._deathListener.unsubscribe();
   }
 
-  get userInfo() { return this.authService.isLoggedIn ? this.authService.userProfile.nickname : 'Sign in' }
+  get userInfo() { return this.authService.isLoggedIn ? this.user.displayname : 'Sign in' }
 
   login() {
     !this.authService.isLoggedIn ? this.authService.login() : null;

@@ -1,27 +1,23 @@
 import { createReducer, on } from '@ngrx/store';
 import { setUser, clearUser } from './user.actions';
+import { Rank } from 'src/models/user';
 
 export interface UserState {
-    id: string;
-    username: string;
+    displayname: string;
+    rank: Rank;
 }
 
 export const initalState: UserState = {
-    id: null,
-    username: null
+    displayname: null,
+    rank: null
 };
-
-// export const initalState: UserState = {
-//     id: '123',
-//     username: 'jsainz237'
-// };
 
 const _userReducer = createReducer(initalState,
     on(setUser, (state, payload) =>  {
         console.log(payload)
-        return { id: payload.id, username: payload.username }
+        return { displayname: payload.displayname, rank: payload.rank }
     }),
-    on(clearUser, () => ({ id: null, username: null }))
+    on(clearUser, () => ({ displayname: null, rank: null }))
 )
 
 export function userReducer(state, action) {

@@ -7,15 +7,15 @@ import { Store } from '@ngrx/store';
 import { Rank } from 'src/models/user';
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { setUser } from 'src/state/user/user.actions';
 
 (window as any).global = window;
 
 type APIResponse = {
   email: string;
+  displayname: string;
   rank: Rank;
-} | {
-  errors: string[]
-}
+};
 
 @Injectable({
   providedIn: 'root'
@@ -47,10 +47,12 @@ export class AuthService {
   }
 
   checkNameAvailable(name: string) {
-    return this.http.post<{ available: boolean }>(
+    return this.http.get<{ available: boolean }>(
       `${environment.api_url}/auth/check-displayname`,
-      { displayname: name },
-      { headers: new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`) }
+      { 
+        headers: new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`),
+        params: { displayname: name }
+      }
     );
   }
 
@@ -62,14 +64,17 @@ export class AuthService {
     );
   }
 
-  getRank(email: string) {
-    return this.http.post<APIResponse>(
-      `${environment.api_url}/auth/userinfo`,
-      { email },
-      { headers: new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`)}
-    ).pipe(
-      catchError(err => new Observable(err))
-    )
+  APILogin() {
+    if(this.userProfile) {
+      console.log("LOGIN RAN");
+      this.http.post<APIResponse>(
+        `${environment.api_url}/auth/login`,
+        { email: this.userProfile.email, displayname: this.userProfile.nickname },
+        { headers: new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`) })
+      .subscribe(({ displayname, rank }) => {
+        this.store.dispatch(setUser({ displayname, rank }))
+      })
+    }
   }
 
   //------- AUTH0 FUNCTIONS ----------//
@@ -104,8 +109,8 @@ export class AuthService {
     // Use access token to retrieve user's profile and set session
     this.auth0.client.userInfo(authResult.accessToken, (err, profile) => {
       if (profile) {
-        console.log(profile)
         this._setSession(authResult, profile);
+        this.APILogin();
       }
     });
   }
