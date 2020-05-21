@@ -66,13 +66,12 @@ export class AuthService {
 
   APILogin() {
     if(this.userProfile) {
-      console.log("LOGIN RAN");
       this.http.post<APIResponse>(
         `${environment.api_url}/auth/login`,
         { email: this.userProfile.email, displayname: this.userProfile.nickname },
         { headers: new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`) })
-      .subscribe(({ displayname, rank }) => {
-        this.store.dispatch(setUser({ displayname, rank }))
+      .subscribe(({ email, displayname, rank }) => {
+        this.store.dispatch(setUser({ email, displayname, rank }))
       })
     }
   }

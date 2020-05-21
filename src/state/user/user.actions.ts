@@ -2,6 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { Rank } from 'src/types/rank';
 
 export interface SetUserPayload {
+    email: string;
     displayname: string;
     rank: Rank;
 };
