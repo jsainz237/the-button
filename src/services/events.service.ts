@@ -8,13 +8,14 @@ import { Rank } from 'src/types/rank';
   providedIn: 'root'
 })
 export class EventsService {
-  resetListener = this.socket.fromEvent<{ username: string, rank: Rank }>(SocketEvents.RESET);
+  resetListener = this.socket.fromEvent<{ displayname: string, rank: Rank }>(SocketEvents.RESET);
   updateColorListener = this.socket.fromEvent<{ color: Rank, index: number }>(SocketEvents.UPDATE_COLOR);
+  setUserColorListener = this.socket.fromEvent<{ rank: Rank }>(SocketEvents.SET_USER_COLOR);
   deathListener = this.socket.fromEvent<{}>(SocketEvents.DEATH);
 
   constructor(private socket: Socket) { }
 
-  sendPressEvent(displayname?: string) {
-    this.socket.emit(SocketEvents.PRESSED, displayname);
+  sendPressEvent(email?: string) {
+    this.socket.emit(SocketEvents.PRESSED, email);
   }
 }

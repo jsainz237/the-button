@@ -1,15 +1,15 @@
 import { createAction, props } from '@ngrx/store';
+import { User } from 'src/models/user';
 import { Rank } from 'src/types/rank';
-
-export interface SetUserPayload {
-    email: string;
-    displayname: string;
-    rank: Rank;
-};
 
 export const setUser = createAction(
     '[User] SET_USER',
-    props<SetUserPayload>()
+    props<User>()
+);
+
+export const updateUserRank = createAction(
+    '[User] UPDATE_USER_RANK',
+    props<{rank: Rank}>()
 );
 
 export const clearUser = createAction('[USER] CLEAR_USER');
