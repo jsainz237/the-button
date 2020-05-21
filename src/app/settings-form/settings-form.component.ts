@@ -4,6 +4,9 @@ import { customPatternCheck } from '../utils/validators';
 import { Subscription, Observable } from 'rxjs';
 import { AuthService } from 'src/services/auth.service';
 import { debounceTime, switchMap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { User } from 'src/models/user';
+import { updateUserDisplayname } from 'src/state/user/user.actions';
 
 @Component({
   selector: 'app-settings-form',
@@ -19,7 +22,10 @@ export class SettingsFormComponent implements OnInit, OnDestroy {
 
   get displayname() { return this.settingsForm.get('displayname') }
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private store: Store<{ user: User }>
+  ) { }
 
   ngOnInit(): void {
     this.configureForm();
@@ -41,6 +47,7 @@ export class SettingsFormComponent implements OnInit, OnDestroy {
     this._nameAvailableSub.unsubscribe();
   }
 
+  /** Configure Form Group and Controls */
   configureForm() {
     this.settingsForm = new FormGroup({
       'displayname': new FormControl('', [
@@ -54,6 +61,7 @@ export class SettingsFormComponent implements OnInit, OnDestroy {
     return control.invalid && (control.dirty || control.touched);
   }
 
+  /** Make GET request to check if display name is available */
   checkDisplayName(name: string): Observable<{ available: boolean } | null> {
     if(name.length !== 0 && this.displayname.valid) {
       return this.authService.checkNameAvailable(name.toLocaleLowerCase());
@@ -62,8 +70,14 @@ export class SettingsFormComponent implements OnInit, OnDestroy {
     return new Observable();
   }
 
-  submit() {
-    this.authService.editDisplayname(name);
+  /** Make POST request to API to change user's displayname */
+  submitDisplayNameEdit() {
+    if(this.displayname.valid && this.showCheckmark)
+      this.authService.editDisplayname(this.displayname.value)
+        .subscribe(({ displayname }) => {
+          this.store.dispatch(updateUserDisplayname({ displayname }))
+          this.displayname.setValue('');
+        });
   }
 
 }

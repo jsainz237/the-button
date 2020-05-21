@@ -7,7 +7,7 @@
     </div>
 
     <div class="bottom-wrapper">
-        <button class='form-button' type="submit" (click)="submit()" [ngClass]="!showCheckmark ? 'disabled' : null" [disabled]="!showCheckmark">Save</button>
+        <button class='form-button' type="submit" (click)="submitDisplayNameEdit()" [ngClass]="!showCheckmark ? 'disabled' : null" [disabled]="!showCheckmark">Save</button>
         <span *ngIf="showError(displayname)" class="error-icon" placement="left" tooltipClass="error-tooltip" [ngbTooltip]="displaynameErrors">
             <i class="fas fa-times-circle"></i>
         </span>

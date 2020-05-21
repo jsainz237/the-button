@@ -12,4 +12,9 @@ export const updateUserRank = createAction(
     props<{rank: Rank}>()
 );
 
+export const updateUserDisplayname = createAction(
+    '[User] UPDATE_USER_DISPLAYNAME',
+    props<{ displayname: string }>()
+)
+
 export const clearUser = createAction('[USER] CLEAR_USER');

@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { setUser, updateUserRank, clearUser } from './user.actions';
+import { setUser, updateUserRank, clearUser, updateUserDisplayname } from './user.actions';
 import { User } from 'src/models/user';
 
 export const initalState: User = {
@@ -17,6 +17,7 @@ const _userReducer = createReducer(initalState,
         }
     }),
     on(updateUserRank, (state, payload) => ({ ...state, rank: payload.rank })),
+    on(updateUserDisplayname, (state, payload) => ({ ...state, displayname: payload.displayname })),
     on(clearUser, () => ({ email: null, displayname: null, rank: null }))
 )
 

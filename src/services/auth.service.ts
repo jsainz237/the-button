@@ -57,9 +57,9 @@ export class AuthService {
   }
 
   editDisplayname(name: string) {
-    return this.http.post(
+    return this.http.post<APIResponse>(
       `${environment.api_url}/auth/edit-displayname`,
-      { displayname: name },
+      { email: this.userProfile.email, displayname: name },
       { headers: new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`) }
     );
   }
