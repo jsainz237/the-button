@@ -18,6 +18,7 @@ import { CallbackComponent } from './callback/callback.component';
 import { SettingsFormComponent } from './settings-form/settings-form.component';
 import { FeedComponent } from './feed/feed.component';
 import { InstructionsPageComponent } from './instructions-page/instructions-page.component';
+import { activitiesReducer } from 'src/state/activities/activities.reducer';
 
 const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} }
 
@@ -38,7 +39,8 @@ const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} }
     AppRoutingModule,
     StoreModule.forRoot({ 
       color: colorReducer,
-      user: userReducer 
+      user: userReducer,
+      activities: activitiesReducer
     }),
     FormsModule,
     ReactiveFormsModule,

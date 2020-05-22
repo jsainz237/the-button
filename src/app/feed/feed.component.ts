@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { EventsService, FeedItem } from 'src/services/events.service';
 import { Subscription } from 'rxjs';
 import { RankColorMap } from 'src/types/rank';
+import { Store, select } from '@ngrx/store';
+import { ActivitiesState } from 'src/state/activities/activities.reducer';
 
 @Component({
   selector: 'app-feed',
@@ -9,28 +11,21 @@ import { RankColorMap } from 'src/types/rank';
   styleUrls: ['./feed.component.scss']
 })
 export class FeedComponent implements OnInit, OnDestroy {
-  feed: FeedItem[] = [];
+  feed: FeedItem[];
   rankColorMap = RankColorMap;
-  loaded: boolean;
-  _sendFeedListener: Subscription;
-  _resetListener: Subscription;
+  _feedListener: Subscription;
 
-  constructor(private eventsService: EventsService) { }
+  constructor(
+    private eventsService: EventsService,
+    private store: Store<{ activities: ActivitiesState }>
+  ) { }
 
   ngOnInit(): void {
-    console.log("INITTED")
-    this.loaded = false;
-    this._sendFeedListener = this.eventsService.sendFeedListener.subscribe(({ feed }) => {
-      this.feed = feed;
-      this.loaded = true;
-    });
-    this._resetListener = this.eventsService.resetListener.subscribe(({ feed }) => this.feed = feed);
+    this._feedListener = this.store.pipe(select('activities')).subscribe(({ feed }) => this.feed = feed);
   }
 
   ngOnDestroy(): void {
-    this.loaded = false;
-    this._sendFeedListener.unsubscribe();
-    this._resetListener.unsubscribe();
+    this._feedListener.unsubscribe();
   }
 
   /** calculate the opacity that the feed item should be based on index */

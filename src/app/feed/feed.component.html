@@ -1,4 +1,4 @@
-<ng-container *ngIf="loaded">
+<ng-container *ngIf="this.feed">
     <ul class="feed-list">
         <li class="feed-list-item" *ngFor="let item of feed; let index=index" [style.opacity]="calculateOpacity(index)">
             <span class='feed-list-name'>{{ item.displayname }}</span>

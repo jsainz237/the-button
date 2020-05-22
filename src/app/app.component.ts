@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { EventsService } from 'src/services/events.service';
+import { EventsService, FeedItem } from 'src/services/events.service';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { User } from 'src/models/user';
 import { updateUserRank } from 'src/state/user/user.actions';
+import { setActivityFeed } from 'src/state/activities/activities.actions';
 
 @Component({
   selector: 'app-root',
@@ -13,20 +14,33 @@ import { updateUserRank } from 'src/state/user/user.actions';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'the-button';
   _setUserColorListener: Subscription;
+  _sendFeedListener: Subscription;
+  _resetListener: Subscription;
 
   constructor(
     private eventsService: EventsService,
-    private store: Store<{ user: User }>,
+    private store: Store,
   ) {}
 
   ngOnInit() {
-    this._setUserColorListener = this.eventsService.setUserColorListener
-      .subscribe(({ rank }) => 
-        this.store.dispatch(updateUserRank({ rank }))
-      );
+    this._setUserColorListener = this.eventsService.setUserColorListener.subscribe(({ rank }) => {
+      this.store.dispatch(updateUserRank({ rank }));
+    });
+
+    this._sendFeedListener = this.eventsService.sendFeedListener.subscribe(({ feed }) => {
+      console.log("Send listener");
+      this.store.dispatch(setActivityFeed({ feed }));
+    })
+
+    this._resetListener = this.eventsService.resetListener.subscribe(({ feed }) => {
+      console.log("reset listener")
+      this.store.dispatch(setActivityFeed({ feed }));
+    })
   }
 
   ngOnDestroy() {
     this._setUserColorListener.unsubscribe();
+    this._sendFeedListener.unsubscribe();
+    this._resetListener.unsubscribe();
   }
 }
