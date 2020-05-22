@@ -1,0 +1,34 @@
+@import "../../variables";
+@import "~bootstrap/scss/_functions";
+@import "~bootstrap/scss/_variables";
+@import "~bootstrap/scss/mixins/_breakpoints";
+
+@include media-breakpoint-down(md) {
+    .instructions {
+        margin-top: 50px;
+        margin-bottom: 50px;
+        height: auto;
+    }
+}
+
+.instructions {
+    color: $dark-gray;
+}
+
+.instruction-link {
+    color: $button-color;
+    text-decoration: underline;
+
+    &:hover {
+        color: $button-color;
+    }
+}
+
+.purple {
+    color: $purple;
+}
+
+.red {
+    color: $red;
+}
+
