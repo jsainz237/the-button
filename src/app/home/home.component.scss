@@ -1,4 +1,7 @@
 @import "../../variables";
+@import "~bootstrap/scss/_functions";
+@import "~bootstrap/scss/_variables";
+@import "~bootstrap/scss/mixins/_breakpoints";
 
 .home .container {
     display: flex;
@@ -67,8 +70,15 @@
     font-size: 18px;
 }
 
+@include media-breakpoint-down(sm) {
+    .home-toolbar {
+        padding: 0;
+    }
+}
+
 .home-content {
     flex: 1;
+    min-height: 655px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;

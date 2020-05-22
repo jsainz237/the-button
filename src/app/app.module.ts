@@ -10,16 +10,14 @@ import { AppComponent } from './app.component';
 import { TheButtonComponent } from './the-button/the-button.component';
 import { HomeComponent } from './home/home.component';
 import { ColorBarComponent } from './color-bar/color-bar.component';
-import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { colorReducer } from 'src/state/color/color.reducer';
-import { RegisterComponent } from './register/register.component';
-import { SuccessComponent } from './success/success.component';
 import { userReducer } from 'src/state/user/user.reducer';
 import { AuthService } from 'src/services/auth.service';
 import { CallbackComponent } from './callback/callback.component';
 import { SettingsFormComponent } from './settings-form/settings-form.component';
 import { FeedComponent } from './feed/feed.component';
+import { InstructionsPageComponent } from './instructions-page/instructions-page.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} }
 
@@ -29,12 +27,10 @@ const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} }
     TheButtonComponent,
     HomeComponent,
     ColorBarComponent,
-    LoginComponent,
-    RegisterComponent,
-    SuccessComponent,
     CallbackComponent,
     SettingsFormComponent,
-    FeedComponent
+    FeedComponent,
+    InstructionsPageComponent
   ],
   imports: [
     BrowserModule,

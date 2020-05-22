@@ -1,6 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;800&display=swap');
 @import "./variables";
 @import "~bootstrap/scss/bootstrap";
+@import "~bootstrap/scss/_functions";
+@import "~bootstrap/scss/_variables";
+@import "~bootstrap/scss/mixins/_breakpoints";
+
+@include media-breakpoint-down(sm) {
+    .title {
+        font-size: 2em;
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    .title {
+        font-size: 4em;
+    }
+}
 
 body {
     margin: 0
@@ -42,7 +57,7 @@ body {
 
 .title {
     font-family: 'Montserrat', sans-serif;
-    font-size: 4em;
+    // font-size: 4em;
     font-weight: bold;
     color: $gray;
 }
