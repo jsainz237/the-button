@@ -1,7 +1,7 @@
 <div class="home container">
 
     <div class="home-toolbar">
-        <a routerLink="/instructions" class="home-link">Instructions</a>
+        <a routerLink="/instructions" class="home-link instructions-link"></a>
         <div class="home-auth-wrapper">
             <span 
                 class="home-rank-icon" 
@@ -14,9 +14,9 @@
             </span>
             <a [ngClass]="authService.isLoggedIn ? 'userinfo' : 'home-link'" (click)="login()">{{ userInfo }}</a>
 
-            <div ngbDropdown *ngIf="authService.isLoggedIn">
+            <div ngbDropdown *ngIf="authService.isLoggedIn" class="home-dropdown">
                 <span ngbDropdownToggle class='home-icon'><i class="fas fa-cog"></i></span>
-                <div ngbDropdownMenu class='dropdown-menu'>
+                <div ngbDropdownMenu class='dropdown-menu dropdown-menu-left'>
                     <app-settings-form></app-settings-form>
                     <div class="dropdown-divider"></div>
                     <a ngbDropdownItem class="home-link sign-out" (click)="authService.logout()">sign out</a>

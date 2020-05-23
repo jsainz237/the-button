@@ -3,10 +3,23 @@
 @import "~bootstrap/scss/_variables";
 @import "~bootstrap/scss/mixins/_breakpoints";
 
-.home .container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+@include media-breakpoint-down(sm) {
+    .home-dropdown {
+        display: none;
+    }
+}
+
+.instructions-link:after {
+    content: 'Instructions';
+}
+
+@include media-breakpoint-down(xs) {
+    .instructions-link:after {
+        content: '?';
+    }
+}
+
+.home {
     min-height: 500px;
 }
 
@@ -78,7 +91,7 @@
 
 .home-content {
     flex: 1;
-    min-height: 655px;
+    min-height: 500px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
