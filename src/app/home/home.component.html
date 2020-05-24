@@ -14,9 +14,9 @@
             </span>
             <a [ngClass]="authService.isLoggedIn ? 'userinfo' : 'home-link'" (click)="login()">{{ userInfo }}</a>
 
-            <div ngbDropdown *ngIf="authService.isLoggedIn" class="home-dropdown">
+            <div ngbDropdown *ngIf="authService.isLoggedIn" display="dynamic" placement="bottom-right" class="home-dropdown">
                 <span ngbDropdownToggle class='home-icon'><i class="fas fa-cog"></i></span>
-                <div ngbDropdownMenu class='dropdown-menu dropdown-menu-left'>
+                <div ngbDropdownMenu class='dropdown-menu'>
                     <app-settings-form></app-settings-form>
                     <div class="dropdown-divider"></div>
                     <a ngbDropdownItem class="home-link sign-out" (click)="authService.logout()">sign out</a>
