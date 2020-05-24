@@ -3,6 +3,7 @@ import { EventsService } from '../../services/events.service';
 import { Store, select } from '@ngrx/store';
 import { User } from 'src/models/user';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/services/auth.service';
 
 @Component({
   selector: 'app-the-button',
@@ -15,6 +16,7 @@ export class TheButtonComponent implements OnInit, OnDestroy {
 
   constructor(
     private eventsService: EventsService,
+    private authService: AuthService,
     private store: Store<{ user: User }>
   ) { }
 
@@ -26,8 +28,12 @@ export class TheButtonComponent implements OnInit, OnDestroy {
     this._userSub.unsubscribe();
   }
 
-  pressButton() {
-    this.eventsService.sendPressEvent(this.user.email);
+  pressButton(): void {
+    if(this.authService.isLoggedIn) {
+      return this.eventsService.sendPressEvent(this.user.email)
+    } else {
+      const conf = confirm("You are not signed in. Your rank will not be saved. Would you still like to press the button?");
+      conf ? this.eventsService.sendPressEvent() : null;
+    }
   }
-
 }
