@@ -20,9 +20,7 @@ type APIResponse = {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
-  API_URL: string = "http://localhost:5000";
-  
+export class AuthService {  
   auth0 = new auth0.WebAuth({
     clientID: environment.auth.clientID,
     domain: environment.auth.domain,
@@ -91,6 +89,7 @@ export class AuthService {
         this.getUserInfo(authResult);
       } else if (err) {
         console.error(`Error: ${err.error}`);
+        console.error(err);
       }
       this.router.navigate(['/']);
     });
@@ -127,7 +126,7 @@ export class AuthService {
     // Ensure that returnTo URL is specified in Auth0
     // Application settings for Allowed Logout URLs
     this.auth0.logout({
-      returnTo: 'http://localhost:4200',
+      returnTo: environment.auth.logoutRedirect,
       clientID: environment.auth.clientID
     });
   }

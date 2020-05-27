@@ -19,8 +19,9 @@ import { SettingsFormComponent } from './settings-form/settings-form.component';
 import { FeedComponent } from './feed/feed.component';
 import { InstructionsPageComponent } from './instructions-page/instructions-page.component';
 import { activitiesReducer } from 'src/state/activities/activities.reducer';
+import { environment } from '../environments/environment';
 
-const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} }
+const config: SocketIoConfig = { url: environment.api_url, options: {} }
 
 @NgModule({
   declarations: [
