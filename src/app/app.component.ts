@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { EventsService, FeedItem } from 'src/services/events.service';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { User } from 'src/models/user';
 import { updateUserRank } from 'src/state/user/user.actions';
 import { setActivityFeed } from 'src/state/activities/activities.actions';
 
@@ -20,7 +19,10 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private eventsService: EventsService,
     private store: Store,
-  ) {}
+  ) {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }
 
   ngOnInit() {
     this._setUserColorListener = this.eventsService.setUserColorListener.subscribe(({ rank }) => {
