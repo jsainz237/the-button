@@ -30,12 +30,10 @@ export class AppComponent implements OnInit, OnDestroy {
     });
 
     this._sendFeedListener = this.eventsService.sendFeedListener.subscribe(({ feed }) => {
-      console.log("Send listener");
       this.store.dispatch(setActivityFeed({ feed }));
     })
 
     this._resetListener = this.eventsService.resetListener.subscribe(({ feed }) => {
-      console.log("reset listener")
       this.store.dispatch(setActivityFeed({ feed }));
     })
   }

@@ -12,7 +12,6 @@ const initalState: ActivitiesState = {
 
 const _activitiesReducer = createReducer(initalState,
     on(setActivityFeed, (_, payload) =>  {
-        console.log(payload.feed);
         return { feed: payload.feed };
     }),
 )
